@@ -1,0 +1,16 @@
+﻿<Window x:Class="LEDAppSemaphore.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LEDAppSemaphore"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Rectangle Name="SharedLed" HorizontalAlignment="Left" Height="40" Margin="184,183,0,0" Stroke="Black" VerticalAlignment="Top" Width="40" RadiusX="20" RadiusY="20"/>
+
+        <Button Name="StopButton"  Content="Stop" HorizontalAlignment="Left" Margin="79,360,0,0" VerticalAlignment="Top" Width="50" Click="StopButton_Click"/>
+        <Button Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="27,360,0,0" VerticalAlignment="Top" Width="38" Click="StartButton_Click"/>
+
+    </Grid>
+</Window>
