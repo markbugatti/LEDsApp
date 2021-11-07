@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LEDsApp", "LEDsApp\LEDsApp.csproj", "{88C7CC2D-1B3A-4FF3-9BAD-B0BE14F24CAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEDAppSemaphore", "LEDAppSemaphore\LEDAppSemaphore.csproj", "{214BD271-384C-4E7F-8664-1DED6E18B777}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LEDAppSemaphore", "LEDAppSemaphore\LEDAppSemaphore.csproj", "{214BD271-384C-4E7F-8664-1DED6E18B777}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEDAppTaskScheduler", "LEDAppTaskScheduler\LEDAppTaskScheduler.csproj", "{59D0F372-0E4A-45C3-ADB6-473A1BD12AB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{214BD271-384C-4E7F-8664-1DED6E18B777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{214BD271-384C-4E7F-8664-1DED6E18B777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{214BD271-384C-4E7F-8664-1DED6E18B777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59D0F372-0E4A-45C3-ADB6-473A1BD12AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59D0F372-0E4A-45C3-ADB6-473A1BD12AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59D0F372-0E4A-45C3-ADB6-473A1BD12AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59D0F372-0E4A-45C3-ADB6-473A1BD12AB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
