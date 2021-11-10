@@ -36,7 +36,6 @@ namespace LEDAppTaskScheduler
                 }
             );
             var realTimeOs = new CustomOS(initialTaskSet);
-
         }
 
         private void StopButton_Click(object sender, RoutedEventArgs e)
@@ -95,12 +94,17 @@ namespace LEDAppTaskScheduler
             this.brush = brush;
         }
 
-        public void ColorTheDiod() => rectangle.Dispatcher.BeginInvoke(colorAction, rectangle, brush);
+        public void ColorTheDiod() => Task.Run(() => rectangle.Dispatcher.BeginInvoke(colorAction, rectangle, brush, uncolorAction));
 
-        private readonly Action<Rectangle, SolidColorBrush> colorAction = (Rectangle rect, SolidColorBrush brush) =>
+        private readonly Action<Rectangle, SolidColorBrush, Action<Rectangle>> colorAction = (Rectangle rect, SolidColorBrush brush, Action<Rectangle> uncolorAction) =>
         {
-            if (rect.Fill == null) rect.Fill = brush;
-            else rect.Fill = null;
+            rect.Fill = brush;
+            Task.Delay(400).ContinueWith(_ => rect.Dispatcher.BeginInvoke(uncolorAction, rect));
+        };
+
+        private readonly Action<Rectangle> uncolorAction = (Rectangle rect) =>
+        {
+            rect.Fill = null;
         };
 
         public override bool Equals(object obj)
@@ -123,58 +127,23 @@ namespace LEDAppTaskScheduler
 
     public class CustomOS
     {
-        private object taskQueueLocker = new object();
-
-        private IEnumerable<CustomTask> taskQueue;
-        private DefaultTaskSet taskPool;
-        private DispatcherTimer osTimer;
-        private DispatcherTimer tsTimer; // task scheduler timer
-        private Random randomizer;
+        private DispatcherTimer tsTimer;
         private CustomTaskScheduler taskScheduler;
 
         public CustomOS(DefaultTaskSet taskPool)
         {
-            this.taskPool = taskPool;
-            taskQueue = new List<CustomTask>();
-            randomizer = new Random();
             taskScheduler = new CustomTaskScheduler();
-
-            osTimer = new DispatcherTimer();
-            osTimer.Interval = TimeSpan.FromSeconds(1d);
-            osTimer.Tick += OSTimerEventHandler;
-            osTimer.Start();
 
             tsTimer = new DispatcherTimer();
             tsTimer.Interval = TimeSpan.FromSeconds(1d);
             tsTimer.Tick += (s, e) =>
             {
                 var nextTaskNumber = taskScheduler.GetNextTaskNumber();
-                
-                lock(taskQueueLocker)
-                {
-                    //override Equals
-                    var taskFromPool = taskPool[nextTaskNumber];
-                    var firstSequence = taskQueue.TakeWhile(p => !p.Equals(taskFromPool));
-                    var secondSequence = taskQueue.SkipWhile(p => !p.Equals(taskFromPool)); // check if 1 element should be skipped after this method
-                    var taskFromQueue = secondSequence.Take(1).FirstOrDefault();
-                    secondSequence = secondSequence.Skip(1);
+                var taskFromPool = taskPool[nextTaskNumber];
 
-                    taskQueue = firstSequence.Concat(secondSequence);
-
-                    taskFromQueue.ColorTheDiod();
-                }
+                taskFromPool.ColorTheDiod();
             };
             tsTimer.Start();
-        }
-
-        private void OSTimerEventHandler(object? sender, EventArgs e)
-        {
-            int randomTaskNumber = randomizer.Next(0, 3);
-
-            lock (taskQueueLocker)
-            {
-                taskQueue.Append(this.taskPool[randomTaskNumber]);
-            }
         }
 
         private class CustomTaskScheduler
@@ -208,7 +177,8 @@ namespace LEDAppTaskScheduler
 
             public int GetNextTaskNumber()
             {
-                return this.randomizer.Next(0, this.priorityList.Count);
+                var taskIndex = this.randomizer.Next(0, this.priorityList.Count);
+                return priorityList[taskIndex];
             }
         }
     }
