@@ -94,23 +94,6 @@ namespace LEDAppTaskScheduler
         {
             rect.Fill = null;
         };
-
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() != typeof(CustomTask))
-                throw new ArgumentException($"Argument type should be {typeof(CustomTask)}");
-
-            var inputCustomTask = (CustomTask)obj;
-
-            if (this.brush.Color!= inputCustomTask.brush.Color) return false;
-            
-            return true;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.rectangle.GetHashCode() + this.brush.GetHashCode();
-        }
     }
 
     public class CustomOS
