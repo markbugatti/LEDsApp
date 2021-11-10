@@ -84,11 +84,12 @@ namespace LEDAppTaskScheduler
 
         public void ColorTheDiod() => Task.Run(() => rectangle.Dispatcher.BeginInvoke(colorAction, rectangle, brush, uncolorAction));
 
-        private readonly Action<Rectangle, SolidColorBrush, Action<Rectangle>> colorAction = (Rectangle rect, SolidColorBrush brush, Action<Rectangle> uncolorAction) =>
-        {
-            rect.Fill = brush;
-            Task.Delay(400).ContinueWith(_ => rect.Dispatcher.BeginInvoke(uncolorAction, rect));
-        };
+        private readonly Action<Rectangle, SolidColorBrush, Action<Rectangle>> colorAction = 
+            (Rectangle rect, SolidColorBrush brush, Action<Rectangle> uncolorAction) =>
+                {
+                    rect.Fill = brush;
+                    Task.Delay(400).ContinueWith(_ => rect.Dispatcher.BeginInvoke(uncolorAction, rect));
+                };
 
         private readonly Action<Rectangle> uncolorAction = (Rectangle rect) =>
         {
