@@ -25,35 +25,23 @@ namespace LEDAppTaskScheduler
         public MainWindow()
         {
             InitializeComponent();
-            // Create default task set. It means all tasks that will be executed in OS;
-            // Create OS
-            // Pass taskSet to OS
-            var initialTaskSet = new DefaultTaskSet(new List<CustomTask>()
+
+            var initialTaskSet = new TaskPool(new List<CustomTask>()
                 {
                     new CustomTask(this.RedLed, Brushes.DarkRed),
                     new CustomTask(this.YellowLed, Brushes.Orange),
                     new CustomTask(this.GreenLed, Brushes.DarkGreen)
                 }
             );
-            var realTimeOs = new CustomOS(initialTaskSet);
-        }
-
-        private void StopButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void StartButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            new CustomOS(initialTaskSet);
         }
     }
 
-    public class DefaultTaskSet : IEnumerable<CustomTask>
+    public class TaskPool : IEnumerable<CustomTask>
     {
         private IEnumerable<CustomTask> taskList;
 
-        public DefaultTaskSet(IEnumerable<CustomTask> taskList)
+        public TaskPool(IEnumerable<CustomTask> taskList)
         {
             this.taskList = taskList;
         }
@@ -130,7 +118,7 @@ namespace LEDAppTaskScheduler
         private DispatcherTimer tsTimer;
         private CustomTaskScheduler taskScheduler;
 
-        public CustomOS(DefaultTaskSet taskPool)
+        public CustomOS(TaskPool taskPool)
         {
             taskScheduler = new CustomTaskScheduler();
 

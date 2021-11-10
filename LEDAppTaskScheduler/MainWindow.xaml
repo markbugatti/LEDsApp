@@ -10,7 +10,5 @@
         <Rectangle Name="RedLed" HorizontalAlignment="Left" Height="40" Margin="184,183,0,0" Stroke="Black" VerticalAlignment="Top" Width="40" RadiusX="20" RadiusY="20"/>
         <Rectangle Name="YellowLed" HorizontalAlignment="Left" Height="40" Margin="274,183,0,0" Stroke="Black" VerticalAlignment="Top" Width="40" RadiusX="20" RadiusY="20"/>
         <Rectangle Name="GreenLed" HorizontalAlignment="Left" Height="40" Margin="229,183,0,0" Stroke="Black" VerticalAlignment="Top" Width="40" RadiusX="20" RadiusY="20"/>
-        <Button Name="StopButton"  Content="Stop" HorizontalAlignment="Left" Margin="79,360,0,0" VerticalAlignment="Top" Width="50" Click="StopButton_Click"/>
-        <Button Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="27,360,0,0" VerticalAlignment="Top" Click="StartButton_Click" Width="38"/>
     </Grid>
 </Window>
